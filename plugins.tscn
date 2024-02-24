@@ -1,0 +1,81 @@
+[gd_scene load_steps=7 format=3 uid="uid://dsnbh5o1mnc1x"]
+
+[ext_resource type="Texture2D" uid="uid://5ihv3krbgpa2" path="res://Icons/File.svg" id="1_4bbvr"]
+[ext_resource type="Script" path="res://plugins.gd" id="1_20f5f"]
+[ext_resource type="Texture2D" uid="uid://cpqx8p1mug75n" path="res://Icons/Add.svg" id="3_kpgra"]
+[ext_resource type="Texture2D" uid="uid://dhay6d7ax0hck" path="res://Icons/WorldEnvironment.svg" id="3_uuf2m"]
+[ext_resource type="Texture2D" uid="uid://bvh1h8wghn3eu" path="res://Icons/Remove.svg" id="4_yn87u"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="5_gauut"]
+
+[node name="Plugins" type="VBoxContainer"]
+script = ExtResource("1_20f5f")
+
+[node name="ActionsContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ButtonImport" type="Button" parent="ActionsContainer"]
+layout_mode = 2
+text = "Import from .zip"
+icon = ExtResource("1_4bbvr")
+
+[node name="ButtonImportFromProject" type="Button" parent="ActionsContainer"]
+visible = false
+layout_mode = 2
+text = "Import from project"
+icon = ExtResource("3_kpgra")
+
+[node name="ButtonBrowseOnline" type="Button" parent="ActionsContainer"]
+layout_mode = 2
+text = "Browse online"
+icon = ExtResource("3_uuf2m")
+
+[node name="BodyContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BodyContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+script = ExtResource("5_gauut")
+
+[node name="PluginsContainer" type="VBoxContainer" parent="BodyContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PluginsActionsContainer" type="VBoxContainer" parent="BodyContainer"]
+custom_minimum_size = Vector2(164, 0)
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="BodyContainer/PluginsActionsContainer"]
+layout_mode = 2
+
+[node name="ButtonRemove" type="Button" parent="BodyContainer/PluginsActionsContainer"]
+layout_mode = 2
+disabled = true
+text = "Remove"
+icon = ExtResource("4_yn87u")
+
+[node name="ImportFileDialog" type="NativeFileDialog" parent="."]
+title = "Open a File"
+file_mode = 0
+access = 2
+root_subfolder = "C:\\"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+title = "Please confirm"
+initial_position = 1
+size = Vector2i(384, 128)
+popup_window = true
+ok_button_text = "Confirm"
+dialog_text = "Remove selected plugin?"
+
+[connection signal="pressed" from="ActionsContainer/ButtonImport" to="." method="_on_button_import_pressed"]
+[connection signal="pressed" from="ActionsContainer/ButtonBrowseOnline" to="." method="_on_button_browse_online_pressed"]
+[connection signal="pressed" from="BodyContainer/PluginsActionsContainer/ButtonRemove" to="." method="_on_button_remove_pressed"]
+[connection signal="file_selected" from="ImportFileDialog" to="." method="_on_import_file_dialog_file_selected"]
+[connection signal="canceled" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]

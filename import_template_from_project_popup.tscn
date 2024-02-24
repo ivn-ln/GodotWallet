@@ -1,0 +1,111 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjc8xjnll7hjt"]
+
+[ext_resource type="Script" path="res://import_template_from_project_popup.gd" id="1_ftw6d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rc4ol"]
+bg_color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[sub_resource type="InputEventAction" id="InputEventAction_nkh0y"]
+action = &"ui_accept"
+
+[sub_resource type="Shortcut" id="Shortcut_w5aw8"]
+events = [SubResource("InputEventAction_nkh0y")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_2exe3"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_jfmmw"]
+events = [SubResource("InputEventAction_2exe3")]
+
+[node name="ImportTemplateFromProjectPopup" type="Window"]
+title = "Import template from project"
+initial_position = 2
+size = Vector2i(864, 584)
+transient = true
+exclusive = true
+script = ExtResource("1_ftw6d")
+
+[node name="Background" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rc4ol")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+
+[node name="Project" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Project:"
+
+[node name="ProjectOptions" type="OptionButton" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="TemplateName" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Template name"
+
+[node name="LineEdit" type="LineEdit" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "New template"
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Godot version"
+
+[node name="VersionOptions" type="OptionButton" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Tree" type="Tree" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+allow_reselect = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Confirm" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 16
+shortcut = SubResource("Shortcut_w5aw8")
+text = "Create"
+
+[node name="Cancel" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 16
+shortcut = SubResource("Shortcut_jfmmw")
+text = "Cancel"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="item_selected" from="Control/MarginContainer/VBoxContainer/ProjectOptions" to="." method="_on_project_options_item_selected"]
+[connection signal="empty_clicked" from="Control/MarginContainer/VBoxContainer/Tree" to="." method="_on_tree_empty_clicked"]
+[connection signal="item_selected" from="Control/MarginContainer/VBoxContainer/Tree" to="." method="_on_tree_item_selected"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/HBoxContainer2/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/HBoxContainer2/Cancel" to="." method="_on_cancel_pressed"]

@@ -1,0 +1,186 @@
+[gd_scene load_steps=9 format=3 uid="uid://dw4mcm0oa7d4"]
+
+[ext_resource type="Script" path="res://godot_installs.gd" id="1_col43"]
+[ext_resource type="Texture2D" uid="uid://5ihv3krbgpa2" path="res://Icons/File.svg" id="2_rm50b"]
+[ext_resource type="Texture2D" uid="uid://dhay6d7ax0hck" path="res://Icons/WorldEnvironment.svg" id="3_huthc"]
+[ext_resource type="Texture2D" uid="uid://drp1n85btei41" path="res://Icons/Reload.svg" id="4_xqowk"]
+[ext_resource type="Texture2D" uid="uid://bf028fs5isl0r" path="res://Icons/MainPlay.svg" id="5_kh6w5"]
+[ext_resource type="Texture2D" uid="uid://bgl5ahovedne0" path="res://Icons/ArrowDown.svg" id="6_k3dib"]
+[ext_resource type="Texture2D" uid="uid://bvh1h8wghn3eu" path="res://Icons/Remove.svg" id="6_kkkbl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oetcd"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.458824, 0.74902, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="VBoxContainer" type="VBoxContainer"]
+offset_right = 421.0
+offset_bottom = 109.0
+script = ExtResource("1_col43")
+
+[node name="ActionsContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ButtonImport" type="Button" parent="ActionsContainer"]
+layout_mode = 2
+text = "Import"
+icon = ExtResource("2_rm50b")
+
+[node name="ButtonWebBrowser" type="Button" parent="ActionsContainer"]
+layout_mode = 2
+tooltip_text = "Download godot from the official website"
+theme_override_colors/font_pressed_color = Color(0.0784314, 0.196078, 0.215686, 1)
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oetcd")
+toggle_mode = true
+text = "Web install"
+icon = ExtResource("3_huthc")
+
+[node name="CheckBox" type="CheckBox" parent="ActionsContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Stable only"
+flat = true
+
+[node name="HideInstalled" type="CheckBox" parent="ActionsContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Hide installed"
+flat = true
+
+[node name="ButtonRefresh" type="Button" parent="ActionsContainer"]
+layout_mode = 2
+disabled = true
+text = "Refresh"
+icon = ExtResource("4_xqowk")
+
+[node name="GodotInstalls" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GodotInstalls"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="InstallsContainer" type="VBoxContainer" parent="GodotInstalls/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DownloadsContainer" type="VBoxContainer" parent="GodotInstalls/ScrollContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Loading" type="CenterContainer" parent="GodotInstalls/ScrollContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="GodotInstalls/ScrollContainer/Loading"]
+layout_mode = 2
+mouse_filter = 1
+text = "Loading..."
+
+[node name="InstallActionsContainer" type="VBoxContainer" parent="GodotInstalls"]
+custom_minimum_size = Vector2(164, 0)
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="GodotInstalls/InstallActionsContainer"]
+layout_mode = 2
+
+[node name="ButtonRun" type="Button" parent="GodotInstalls/InstallActionsContainer"]
+layout_mode = 2
+disabled = true
+text = "Run"
+icon = ExtResource("5_kh6w5")
+
+[node name="ButtonDownload" type="Button" parent="GodotInstalls/InstallActionsContainer"]
+visible = false
+layout_mode = 2
+disabled = true
+text = "Download"
+icon = ExtResource("6_k3dib")
+
+[node name="CheckBox" type="CheckBox" parent="GodotInstalls/InstallActionsContainer/ButtonDownload"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -36.5
+offset_top = 5.0
+offset_right = 36.5
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Mono"
+flat = true
+
+[node name="ButtonRemove" type="Button" parent="GodotInstalls/InstallActionsContainer"]
+layout_mode = 2
+disabled = true
+text = "Remove"
+icon = ExtResource("6_kkkbl")
+
+[node name="SelectImportFile" type="NativeFileDialog" parent="."]
+title = "Open a File"
+file_mode = 0
+access = 2
+root_subfolder = "C:\\"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+initial_position = 2
+popup_window = true
+dialog_text = "Remove installation? (Doesn't delete the executable)"
+
+[node name="HTTPreq" type="HTTPRequest" parent="."]
+
+[node name="HTTPDownload" type="HTTPRequest" parent="."]
+
+[node name="Progress" type="Window" parent="."]
+initial_position = 2
+size = Vector2i(500, 20)
+visible = false
+transient = true
+exclusive = true
+borderless = true
+
+[node name="Control" type="Control" parent="Progress"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="Progress/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+
+[connection signal="pressed" from="ActionsContainer/ButtonImport" to="." method="_on_button_import_pressed"]
+[connection signal="toggled" from="ActionsContainer/ButtonWebBrowser" to="." method="_on_button_web_browser_toggled"]
+[connection signal="toggled" from="ActionsContainer/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="toggled" from="ActionsContainer/HideInstalled" to="." method="_on_hide_installed_toggled"]
+[connection signal="pressed" from="ActionsContainer/ButtonRefresh" to="." method="_on_button_refresh_pressed"]
+[connection signal="pressed" from="GodotInstalls/InstallActionsContainer/ButtonRun" to="." method="_on_button_run_pressed"]
+[connection signal="pressed" from="GodotInstalls/InstallActionsContainer/ButtonDownload" to="." method="_on_button_download_pressed"]
+[connection signal="pressed" from="GodotInstalls/InstallActionsContainer/ButtonRemove" to="." method="_on_button_remove_pressed"]
+[connection signal="file_selected" from="SelectImportFile" to="." method="_on_select_import_file_file_selected"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
+[connection signal="request_completed" from="HTTPreq" to="." method="_on_htt_preq_request_completed"]

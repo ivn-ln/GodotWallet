@@ -1,0 +1,169 @@
+[gd_scene load_steps=14 format=3 uid="uid://c06p3h64453sn"]
+
+[ext_resource type="Script" path="res://project_entry.gd" id="1_wj66i"]
+[ext_resource type="FontFile" uid="uid://cbp52qe6huhjh" path="res://Fonts/NotoSans-VariableFont_wdth,wght.ttf" id="2_32t4f"]
+[ext_resource type="Texture2D" uid="uid://562lrvgjfwbk" path="res://Icons/Favorites.svg" id="2_v3pqb"]
+[ext_resource type="Texture2D" uid="uid://ckhih54htb5j6" path="res://Icons/Folder.svg" id="3_2aeqd"]
+[ext_resource type="Texture2D" uid="uid://df2nysitg6xmx" path="res://Icons/icon.svg" id="3_gmvu5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fr8ym"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8kf4"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.129412, 0.14902, 0.180392, 1)
+border_width_bottom = 2
+border_color = Color(0.223529, 0.254902, 0.309804, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4fi7x"]
+bg_color = Color(0.164706, 0.211765, 0.270588, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cor0f"]
+bg_color = Color(0.239216, 0.352941, 0.462745, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cj4vy"]
+
+[sub_resource type="FontVariation" id="FontVariation_p7avl"]
+base_font = ExtResource("2_32t4f")
+variation_embolden = 1.0
+spacing_glyph = 1
+
+[sub_resource type="FontVariation" id="FontVariation_qghpo"]
+base_font = ExtResource("2_32t4f")
+variation_embolden = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x670l"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.211765, 0.239216, 0.290196, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="ProjectEntry" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 68)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fr8ym")
+script = ExtResource("1_wj66i")
+
+[node name="Select" type="Button" parent="."]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_v8kf4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4fi7x")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_cor0f")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cj4vy")
+toggle_mode = true
+action_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Favorite" type="Button" parent="HBoxContainer"]
+self_modulate = Color(0.309804, 0.345098, 0.392157, 1)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+toggle_mode = true
+icon = ExtResource("2_v3pqb")
+flat = true
+
+[node name="ProjectIcon" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("3_gmvu5")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Spacer" type="Control" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="TopHBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ProjectName" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/TopHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = SubResource("FontVariation_p7avl")
+text = "Project name"
+text_overrun_behavior = 3
+
+[node name="Spacer" type="Control" parent="HBoxContainer/MarginContainer/VBoxContainer/TopHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="OpenDirectory" type="Button" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("3_2aeqd")
+flat = true
+
+[node name="ProjectFilepath" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.447059, 0.47451, 0.513726, 1)
+text = "File path"
+text_overrun_behavior = 1
+
+[node name="Warning" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
+modulate = Color(1, 0.858824, 0.34902, 1)
+layout_mode = 2
+tooltip_text = "Project's feature set"
+mouse_filter = 0
+theme_override_fonts/font = SubResource("FontVariation_qghpo")
+text = "!"
+
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Open with"
+text_overrun_behavior = 3
+
+[node name="Version" type="OptionButton" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_x670l")
+
+[connection signal="pressed" from="Select" to="." method="_on_select_pressed"]
+[connection signal="toggled" from="HBoxContainer/Favorite" to="." method="_on_favorite_toggled"]
+[connection signal="pressed" from="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/OpenDirectory" to="." method="_on_open_directory_pressed"]
+[connection signal="item_selected" from="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/Version" to="." method="_on_version_item_selected"]

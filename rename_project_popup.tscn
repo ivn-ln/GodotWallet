@@ -1,0 +1,103 @@
+[gd_scene load_steps=8 format=3 uid="uid://chpoxmh6ff7r"]
+
+[ext_resource type="Script" path="res://rename_project_popup.gd" id="1_lvmh3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_grpq1"]
+bg_color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5cgwn"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_nkh0y"]
+action = &"ui_accept"
+
+[sub_resource type="Shortcut" id="Shortcut_in45d"]
+events = [SubResource("InputEventAction_nkh0y")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_2exe3"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_0r4mj"]
+events = [SubResource("InputEventAction_2exe3")]
+
+[node name="RenameProjectPopup" type="Window"]
+title = "Rename project?"
+initial_position = 1
+size = Vector2i(384, 128)
+popup_window = true
+min_size = Vector2i(256, 128)
+script = ExtResource("1_lvmh3")
+
+[node name="Background" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_grpq1")
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(256, 128)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5cgwn")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="Control/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "New project name"
+
+[node name="PreviousName" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.513726, 0.513726, 0.513726, 1)
+theme_override_font_sizes/font_size = 12
+text = "Previous name: "
+text_overrun_behavior = 3
+
+[node name="Spacer" type="Control" parent="Control/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Confirm" type="Button" parent="Control/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 16
+shortcut = SubResource("Shortcut_in45d")
+text = "Confirm"
+
+[node name="Cancel" type="Button" parent="Control/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 16
+shortcut = SubResource("Shortcut_0r4mj")
+text = "Cancel"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="text_changed" from="Control/PanelContainer/MarginContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_submitted" from="Control/PanelContainer/MarginContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="pressed" from="Control/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_pressed"]

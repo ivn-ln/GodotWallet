@@ -1,0 +1,147 @@
+[gd_scene load_steps=7 format=3 uid="uid://da05ee8xvajc0"]
+
+[ext_resource type="Script" path="res://create_new_project_popup.gd" id="1_wfk2r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tv6d5"]
+bg_color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[sub_resource type="InputEventAction" id="InputEventAction_nkh0y"]
+action = &"ui_accept"
+
+[sub_resource type="Shortcut" id="Shortcut_ioh0t"]
+events = [SubResource("InputEventAction_nkh0y")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_2exe3"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_361sr"]
+events = [SubResource("InputEventAction_2exe3")]
+
+[node name="CreateNewProjectPopup" type="Window"]
+title = "Create new project"
+initial_position = 2
+size = Vector2i(576, 389)
+transient = true
+exclusive = true
+script = ExtResource("1_wfk2r")
+
+[node name="Background" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tv6d5")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+
+[node name="ProjectName" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Project name:"
+
+[node name="ProjectNameLineEdit" type="LineEdit" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "New Game Project"
+placeholder_text = "Enter project name"
+
+[node name="ProjectLocation" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Project folder location:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ProjectLocationLineEdit" type="LineEdit" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Project folder location"
+
+[node name="Browse" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Browse"
+
+[node name="LocationError" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Version" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Godot version):"
+
+[node name="VersionOptions" type="OptionButton" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Template" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Template:"
+
+[node name="TemplateOptions" type="OptionButton" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+item_count = 1
+selected = 0
+popup/item_0/text = ""
+popup/item_0/id = 0
+
+[node name="Control" type="Control" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Error" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.286275, 0.286275, 1)
+text = "Project with selected name already exists in this folder"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Confirm" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 16
+shortcut = SubResource("Shortcut_ioh0t")
+text = "Create & edit"
+
+[node name="Cancel" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 16
+shortcut = SubResource("Shortcut_361sr")
+text = "Cancel"
+
+[node name="BrowseFolder" type="NativeFileDialog" parent="."]
+title = "Open a Directory"
+file_mode = 2
+access = 2
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="text_changed" from="Control/MarginContainer/VBoxContainer/ProjectNameLineEdit" to="." method="_on_project_name_line_edit_text_changed"]
+[connection signal="text_changed" from="Control/MarginContainer/VBoxContainer/HBoxContainer/ProjectLocationLineEdit" to="." method="_on_project_location_line_edit_text_changed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/HBoxContainer/Browse" to="." method="_on_browse_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/HBoxContainer2/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/HBoxContainer2/Cancel" to="." method="_on_cancel_pressed"]
+[connection signal="dir_selected" from="BrowseFolder" to="." method="_on_browse_folder_dir_selected"]

@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://ebc2el1igprk"]
+
+[ext_resource type="Script" path="res://download_entry.gd" id="1_cej4y"]
+[ext_resource type="Texture2D" uid="uid://df2nysitg6xmx" path="res://Icons/icon.svg" id="2_q18xw"]
+[ext_resource type="FontFile" uid="uid://bwmbx3n5sutaw" path="res://Fonts/DroidSans-Bold.ttf" id="3_yycsp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cj4vy"]
+
+[node name="DownloadEntry" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 48)
+mouse_filter = 1
+script = ExtResource("1_cej4y")
+
+[node name="Select" type="Button" parent="."]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cj4vy")
+toggle_mode = true
+action_mode = 0
+
+[node name="GodotInstallEntry" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="InstallIcon" type="TextureRect" parent="GodotInstallEntry"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_q18xw")
+expand_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GodotInstallEntry"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GodotInstallEntry/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TopHBoxContainer" type="HBoxContainer" parent="GodotInstallEntry/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="InstallName" type="Label" parent="GodotInstallEntry/MarginContainer/VBoxContainer/TopHBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_yycsp")
+theme_override_font_sizes/font_size = 16
+text = "Godot v"
+
+[connection signal="pressed" from="Select" to="." method="_on_select_pressed"]

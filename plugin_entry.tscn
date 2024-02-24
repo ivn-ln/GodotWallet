@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=3 uid="uid://de7ebu5hcp7nh"]
+
+[ext_resource type="Script" path="res://plugin_entry.gd" id="1_516o1"]
+[ext_resource type="Texture2D" uid="uid://cfx87i2na08ip" path="res://icon.svg" id="1_xm820"]
+[ext_resource type="FontFile" uid="uid://bwmbx3n5sutaw" path="res://Fonts/DroidSans-Bold.ttf" id="2_8diqn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ghil"]
+bg_color = Color(0.164706, 0.211765, 0.270588, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k086r"]
+bg_color = Color(0.239216, 0.352941, 0.462745, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cj4vy"]
+
+[node name="PluginEntry" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 48)
+mouse_filter = 1
+script = ExtResource("1_516o1")
+
+[node name="Select" type="Button" parent="."]
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_6ghil")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_k086r")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cj4vy")
+toggle_mode = true
+action_mode = 0
+
+[node name="PluginEntry" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PluginIcon" type="TextureRect" parent="PluginEntry"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_xm820")
+expand_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PluginEntry"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PluginEntry/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PluginName" type="Label" parent="PluginEntry/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_8diqn")
+theme_override_font_sizes/font_size = 16
+text = "Plugin"
+text_overrun_behavior = 3
+
+[node name="Description" type="Label" parent="PluginEntry/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 43)
+layout_mode = 2
+text = "Description"
+autowrap_mode = 3
+text_overrun_behavior = 3
+
+[node name="AutoInstall" type="CheckBox" parent="PluginEntry/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Autoinstall for new projects"
+flat = true
+
+[connection signal="pressed" from="Select" to="." method="_on_select_pressed"]
+[connection signal="toggled" from="PluginEntry/MarginContainer/VBoxContainer/AutoInstall" to="." method="_on_auto_install_toggled"]

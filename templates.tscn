@@ -1,0 +1,111 @@
+[gd_scene load_steps=10 format=3 uid="uid://bjhl7i82gvjiy"]
+
+[ext_resource type="Script" path="res://templates.gd" id="1_h2dh7"]
+[ext_resource type="Texture2D" uid="uid://ckhih54htb5j6" path="res://Icons/Folder.svg" id="2_2qhbv"]
+[ext_resource type="Texture2D" uid="uid://dhha3rnb862ha" path="res://Icons/EditAddRemove.svg" id="2_8tg2t"]
+[ext_resource type="Texture2D" uid="uid://5ihv3krbgpa2" path="res://Icons/File.svg" id="2_cue4q"]
+[ext_resource type="Texture2D" uid="uid://cpqx8p1mug75n" path="res://Icons/Add.svg" id="3_4pjrn"]
+[ext_resource type="Texture2D" uid="uid://dqlqutwsden2d" path="res://Icons/Edit.svg" id="3_r1hyd"]
+[ext_resource type="Texture2D" uid="uid://dhay6d7ax0hck" path="res://Icons/WorldEnvironment.svg" id="4_gq6f0"]
+[ext_resource type="Texture2D" uid="uid://bvh1h8wghn3eu" path="res://Icons/Remove.svg" id="4_lyeaa"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="6_t7y4v"]
+
+[node name="Templates" type="VBoxContainer"]
+script = ExtResource("1_h2dh7")
+
+[node name="ActionsContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ButtonImportFile" type="Button" parent="ActionsContainer"]
+layout_mode = 2
+text = "Import from .zip"
+icon = ExtResource("2_cue4q")
+
+[node name="ButtonImportProject" type="Button" parent="ActionsContainer"]
+layout_mode = 2
+text = "Create from existing project"
+icon = ExtResource("3_4pjrn")
+
+[node name="ButtonFolder" type="Button" parent="ActionsContainer"]
+visible = false
+layout_mode = 2
+text = "Templates folder"
+icon = ExtResource("2_2qhbv")
+
+[node name="ButtonBrowse" type="Button" parent="ActionsContainer"]
+layout_mode = 2
+text = "Browse online"
+icon = ExtResource("4_gq6f0")
+
+[node name="BodyContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BodyContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+script = ExtResource("6_t7y4v")
+
+[node name="TemplatesContainer" type="VBoxContainer" parent="BodyContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TemplateActionsContainer" type="VBoxContainer" parent="BodyContainer"]
+custom_minimum_size = Vector2(164, 0)
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="BodyContainer/TemplateActionsContainer"]
+layout_mode = 2
+
+[node name="ButtonEdit" type="Button" parent="BodyContainer/TemplateActionsContainer"]
+layout_mode = 2
+disabled = true
+text = "Edit"
+icon = ExtResource("2_8tg2t")
+
+[node name="ButtonEditInGodot" type="Button" parent="BodyContainer/TemplateActionsContainer"]
+layout_mode = 2
+disabled = true
+text = "Edit in Godot"
+icon = ExtResource("3_r1hyd")
+
+[node name="ButtonRemove" type="Button" parent="BodyContainer/TemplateActionsContainer"]
+layout_mode = 2
+disabled = true
+text = "Remove"
+icon = ExtResource("4_lyeaa")
+
+[node name="ImportFileDialog" type="NativeFileDialog" parent="."]
+title = "Open a File"
+file_mode = 0
+access = 2
+root_subfolder = "C:\\"
+
+[node name="ImpotProjectDialog" type="NativeFileDialog" parent="."]
+title = "Open a File"
+file_mode = 0
+access = 2
+root_subfolder = "C:\\"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+title = "Please confirm"
+initial_position = 1
+size = Vector2i(384, 128)
+popup_window = true
+ok_button_text = "Confirm"
+dialog_text = "Remove selected template?"
+
+[connection signal="pressed" from="ActionsContainer/ButtonImportFile" to="." method="_on_button_import_file_pressed"]
+[connection signal="pressed" from="ActionsContainer/ButtonImportProject" to="." method="_on_button_import_project_pressed"]
+[connection signal="pressed" from="ActionsContainer/ButtonFolder" to="." method="_on_button_folder_pressed"]
+[connection signal="pressed" from="ActionsContainer/ButtonBrowse" to="." method="_on_button_browse_pressed"]
+[connection signal="pressed" from="BodyContainer/TemplateActionsContainer/ButtonEdit" to="." method="_on_button_edit_pressed"]
+[connection signal="pressed" from="BodyContainer/TemplateActionsContainer/ButtonEditInGodot" to="." method="_on_button_edit_in_godot_pressed"]
+[connection signal="pressed" from="BodyContainer/TemplateActionsContainer/ButtonRemove" to="." method="_on_button_remove_pressed"]
+[connection signal="file_selected" from="ImportFileDialog" to="." method="_on_import_file_dialog_file_selected"]
+[connection signal="file_selected" from="ImpotProjectDialog" to="." method="_on_import_file_dialog_file_selected"]
+[connection signal="canceled" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]

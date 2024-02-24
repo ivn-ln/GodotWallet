@@ -1,0 +1,101 @@
+[gd_scene load_steps=8 format=3 uid="uid://hdxssukd1mi6"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_3n3k1"]
+[ext_resource type="PackedScene" uid="uid://ckv8xmpr08hjf" path="res://local_projects.tscn" id="1_obxto"]
+[ext_resource type="PackedScene" uid="uid://dw4mcm0oa7d4" path="res://godot_installs.tscn" id="2_7jigb"]
+[ext_resource type="PackedScene" uid="uid://bjhl7i82gvjiy" path="res://templates.tscn" id="4_gpna6"]
+[ext_resource type="PackedScene" uid="uid://dsnbh5o1mnc1x" path="res://plugins.tscn" id="5_24wu0"]
+[ext_resource type="PackedScene" uid="uid://suegpsohfoqf" path="res://about_popup.tscn" id="6_mo4c5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tujjd"]
+bg_color = Color(0.145098, 0.168627, 0.203922, 1)
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3n3k1")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="TopContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="TabBar" type="TabBar" parent="MarginContainer/PanelContainer/VBoxContainer/TopContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+tab_count = 4
+tab_0/title = "Local Projects"
+tab_1/title = "Godot Installs"
+tab_2/title = "Templates"
+tab_3/title = "Plugins"
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/VBoxContainer/TopContainer/TabBar"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tujjd")
+
+[node name="ButtonAbout" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/TopContainer"]
+layout_mode = 2
+text = "About"
+
+[node name="TabsContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="LocalProjects" parent="MarginContainer/PanelContainer/VBoxContainer/TabsContainer" instance=ExtResource("1_obxto")]
+layout_mode = 2
+
+[node name="GodotInstalls" parent="MarginContainer/PanelContainer/VBoxContainer/TabsContainer" instance=ExtResource("2_7jigb")]
+visible = false
+layout_mode = 2
+
+[node name="Templates" parent="MarginContainer/PanelContainer/VBoxContainer/TabsContainer" instance=ExtResource("4_gpna6")]
+visible = false
+layout_mode = 2
+
+[node name="Plugins" parent="MarginContainer/PanelContainer/VBoxContainer/TabsContainer" instance=ExtResource("5_24wu0")]
+visible = false
+layout_mode = 2
+
+[node name="Control" type="Control" parent="MarginContainer/PanelContainer/VBoxContainer/TabsContainer"]
+visible = false
+layout_mode = 2
+
+[node name="AboutPopup" parent="." instance=ExtResource("6_mo4c5")]
+visible = false
+
+[connection signal="tab_selected" from="MarginContainer/PanelContainer/VBoxContainer/TopContainer/TabBar" to="." method="_on_tab_bar_tab_selected"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/TopContainer/ButtonAbout" to="." method="_on_button_about_pressed"]

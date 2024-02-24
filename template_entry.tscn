@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=3 uid="uid://iyhhd8wq2tr1"]
+
+[ext_resource type="Script" path="res://template_entry.gd" id="1_gllgn"]
+[ext_resource type="Texture2D" uid="uid://cfx87i2na08ip" path="res://icon.svg" id="1_lfxha"]
+[ext_resource type="FontFile" uid="uid://bwmbx3n5sutaw" path="res://Fonts/DroidSans-Bold.ttf" id="3_x1rjd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ghil"]
+bg_color = Color(0.164706, 0.211765, 0.270588, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k086r"]
+bg_color = Color(0.239216, 0.352941, 0.462745, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cj4vy"]
+
+[node name="TemplateEntry" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 48)
+mouse_filter = 1
+script = ExtResource("1_gllgn")
+
+[node name="Select" type="Button" parent="."]
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_6ghil")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_k086r")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cj4vy")
+toggle_mode = true
+action_mode = 0
+
+[node name="GodotInstallEntry" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="InstallIcon" type="TextureRect" parent="GodotInstallEntry"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_lfxha")
+expand_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GodotInstallEntry"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GodotInstallEntry/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TopHBoxContainer" type="HBoxContainer" parent="GodotInstallEntry/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="InstallName" type="Label" parent="GodotInstallEntry/MarginContainer/VBoxContainer/TopHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_x1rjd")
+theme_override_font_sizes/font_size = 16
+text = "Godot v"
+text_overrun_behavior = 3
+
+[node name="Version" type="Label" parent="GodotInstallEntry/MarginContainer/VBoxContainer/TopHBoxContainer"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="GodotInstallEntry/MarginContainer/VBoxContainer/TopHBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+tooltip_text = "Inactive templates will not be shown as new project options"
+button_pressed = true
+text = "Active"
+
+[connection signal="pressed" from="Select" to="." method="_on_select_pressed"]
+[connection signal="toggled" from="GodotInstallEntry/MarginContainer/VBoxContainer/TopHBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]

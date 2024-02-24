@@ -1,0 +1,141 @@
+[gd_scene load_steps=5 format=3 uid="uid://suegpsohfoqf"]
+
+[ext_resource type="Script" path="res://about_popup.gd" id="1_2okv5"]
+[ext_resource type="Texture2D" uid="uid://c2bspl0llytxa" path="res://Icons/logo.svg" id="1_ot024"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3jpoj"]
+bg_color = Color(0.145098, 0.168627, 0.203922, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tqbc4"]
+bg_color = Color(0.113725, 0.133333, 0.160784, 1)
+corner_radius_top_left = 128
+corner_radius_top_right = 128
+corner_radius_bottom_right = 128
+corner_radius_bottom_left = 128
+
+[node name="AboutPopup" type="Window"]
+title = "About Godot Wallet"
+initial_position = 2
+size = Vector2i(648, 438)
+unresizable = true
+script = ExtResource("1_2okv5")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Background" type="Panel" parent="Control/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3jpoj")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 32
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_tqbc4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("1_ot024")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HBoxContainer/TextureRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 666.0
+offset_bottom = 666.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("1_ot024")
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+
+[node name="Label2" type="Label" parent="Control/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Godot Wallet"
+
+[node name="Label" type="Label" parent="Control/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Created by illarn
+"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="Control/MarginContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 20
+text = "My links"
+
+[node name="Itch" type="Button" parent="Control/MarginContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+text = "Itch.io"
+
+[node name="Github" type="Button" parent="Control/MarginContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+text = "GitHub.com"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="Control/MarginContainer/MarginContainer/VBoxContainer/VBoxContainer2/Itch" to="." method="_on_itch_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/MarginContainer/VBoxContainer/VBoxContainer2/Github" to="." method="_on_github_pressed"]

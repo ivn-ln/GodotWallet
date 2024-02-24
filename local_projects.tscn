@@ -1,0 +1,174 @@
+[gd_scene load_steps=13 format=3 uid="uid://ckv8xmpr08hjf"]
+
+[ext_resource type="Script" path="res://local_projects.gd" id="1_ndjlb"]
+[ext_resource type="Texture2D" uid="uid://btjxw121a78cc" path="res://Icons/Search.svg" id="2_gehic"]
+[ext_resource type="Texture2D" uid="uid://cpqx8p1mug75n" path="res://Icons/Add.svg" id="2_j03d4"]
+[ext_resource type="Texture2D" uid="uid://ckhih54htb5j6" path="res://Icons/Folder.svg" id="3_lis2k"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="5_07cfs"]
+[ext_resource type="Texture2D" uid="uid://dqlqutwsden2d" path="res://Icons/Edit.svg" id="5_gsg8n"]
+[ext_resource type="Texture2D" uid="uid://bf028fs5isl0r" path="res://Icons/MainPlay.svg" id="6_mbre6"]
+[ext_resource type="Texture2D" uid="uid://5ihv3krbgpa2" path="res://Icons/File.svg" id="7_ipa83"]
+[ext_resource type="Texture2D" uid="uid://bdf078mq6n34x" path="res://Icons/Rename.svg" id="8_fawy6"]
+[ext_resource type="Texture2D" uid="uid://ik0v4h7t8wv7" path="res://Icons/Script.svg" id="9_ajljv"]
+[ext_resource type="Texture2D" uid="uid://c4j4xnuyu6smg" path="res://Icons/ScriptExtend.svg" id="10_8gcve"]
+[ext_resource type="Texture2D" uid="uid://bvh1h8wghn3eu" path="res://Icons/Remove.svg" id="10_kwdxr"]
+
+[node name="LocalProjects" type="VBoxContainer"]
+script = ExtResource("1_ndjlb")
+
+[node name="ActionsContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ButtonNew" type="Button" parent="ActionsContainer"]
+layout_mode = 2
+text = "New"
+icon = ExtResource("2_j03d4")
+
+[node name="ButtonImport" type="Button" parent="ActionsContainer"]
+layout_mode = 2
+text = "Import"
+icon = ExtResource("3_lis2k")
+
+[node name="ButtonScan" type="Button" parent="ActionsContainer"]
+layout_mode = 2
+text = "Scan"
+icon = ExtResource("2_gehic")
+
+[node name="Searchbar" type="LineEdit" parent="ActionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+theme_override_font_sizes/font_size = 14
+placeholder_text = "Filter projects"
+clear_button_enabled = true
+right_icon = ExtResource("2_gehic")
+
+[node name="LabelSort" type="Label" parent="ActionsContainer"]
+layout_mode = 2
+text = "Sort:"
+
+[node name="OptionSortBy" type="OptionButton" parent="ActionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 2
+selected = 0
+popup/item_0/text = "Last edited"
+popup/item_0/id = 0
+popup/item_1/text = "Name"
+popup/item_1/id = 1
+
+[node name="BodyContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BodyContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+script = ExtResource("5_07cfs")
+
+[node name="ProjectsContainer" type="VBoxContainer" parent="BodyContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = -1
+
+[node name="ProjectActionsContainer" type="VBoxContainer" parent="BodyContainer"]
+custom_minimum_size = Vector2(164, 0)
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="BodyContainer/ProjectActionsContainer"]
+layout_mode = 2
+
+[node name="ButtonEdit" type="Button" parent="BodyContainer/ProjectActionsContainer"]
+layout_mode = 2
+disabled = true
+text = "Edit"
+icon = ExtResource("5_gsg8n")
+
+[node name="ButtonRun" type="Button" parent="BodyContainer/ProjectActionsContainer"]
+layout_mode = 2
+disabled = true
+text = "Run"
+icon = ExtResource("6_mbre6")
+
+[node name="ButtonExport" type="Button" parent="BodyContainer/ProjectActionsContainer"]
+visible = false
+layout_mode = 2
+disabled = true
+text = "Export"
+icon = ExtResource("7_ipa83")
+
+[node name="ButtonRename" type="Button" parent="BodyContainer/ProjectActionsContainer"]
+layout_mode = 2
+disabled = true
+text = "Rename"
+icon = ExtResource("8_fawy6")
+
+[node name="ButtonManageTags" type="Button" parent="BodyContainer/ProjectActionsContainer"]
+visible = false
+layout_mode = 2
+disabled = true
+text = "Manage tags"
+icon = ExtResource("9_ajljv")
+
+[node name="ButtonManagePlugins" type="Button" parent="BodyContainer/ProjectActionsContainer"]
+layout_mode = 2
+disabled = true
+text = "Manage plugins"
+icon = ExtResource("10_8gcve")
+
+[node name="ButtonRemove" type="Button" parent="BodyContainer/ProjectActionsContainer"]
+layout_mode = 2
+disabled = true
+text = "Remove"
+icon = ExtResource("10_kwdxr")
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+title = "Please confirm"
+initial_position = 1
+size = Vector2i(384, 128)
+popup_window = true
+ok_button_text = "Confirm"
+dialog_text = "Remove selected project? (Doesn't modify the filesystem)"
+
+[node name="VersionConfirmationDialog" type="ConfirmationDialog" parent="."]
+title = "Alert!"
+initial_position = 1
+size = Vector2i(797, 132)
+popup_window = true
+ok_button_text = "Confirm"
+dialog_text = "Project conversion may be required.
+Confirm if you know what you're doing"
+
+[node name="SelectImportFolder" type="NativeFileDialog" parent="."]
+title = "Open a Directory"
+file_mode = 2
+
+[node name="SelectScanFolder" type="NativeFileDialog" parent="."]
+title = "Open a Directory"
+file_mode = 2
+
+[node name="DoubleClickTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="pressed" from="ActionsContainer/ButtonNew" to="." method="_on_button_new_pressed"]
+[connection signal="pressed" from="ActionsContainer/ButtonImport" to="." method="_on_button_import_pressed"]
+[connection signal="pressed" from="ActionsContainer/ButtonScan" to="." method="_on_button_scan_pressed"]
+[connection signal="text_changed" from="ActionsContainer/Searchbar" to="." method="_on_searchbar_text_changed"]
+[connection signal="item_selected" from="ActionsContainer/OptionSortBy" to="." method="_on_option_sort_by_item_selected"]
+[connection signal="pressed" from="BodyContainer/ProjectActionsContainer/ButtonEdit" to="." method="_on_button_edit_pressed"]
+[connection signal="pressed" from="BodyContainer/ProjectActionsContainer/ButtonRun" to="." method="_on_button_run_pressed"]
+[connection signal="pressed" from="BodyContainer/ProjectActionsContainer/ButtonExport" to="." method="_on_button_export_pressed"]
+[connection signal="pressed" from="BodyContainer/ProjectActionsContainer/ButtonRename" to="." method="_on_button_rename_pressed"]
+[connection signal="pressed" from="BodyContainer/ProjectActionsContainer/ButtonManageTags" to="." method="_on_button_manage_tags_pressed"]
+[connection signal="pressed" from="BodyContainer/ProjectActionsContainer/ButtonManagePlugins" to="." method="_on_button_manage_plugins_pressed"]
+[connection signal="pressed" from="BodyContainer/ProjectActionsContainer/ButtonRemove" to="." method="_on_button_remove_pressed"]
+[connection signal="canceled" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
+[connection signal="canceled" from="VersionConfirmationDialog" to="." method="_on_version_confirmation_dialog_canceled"]
+[connection signal="confirmed" from="VersionConfirmationDialog" to="." method="_on_version_confirmation_dialog_confirmed"]
+[connection signal="dir_selected" from="SelectImportFolder" to="." method="_on_select_import_folder_dir_selected"]
+[connection signal="dir_selected" from="SelectScanFolder" to="." method="_on_select_scan_folder_dir_selected"]

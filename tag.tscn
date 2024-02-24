@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8hetqhimspv8"]
+
+[ext_resource type="Script" path="res://tag.gd" id="1_mmgs3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34d3g"]
+bg_color = Color(0.32549, 0.32549, 0.32549, 1)
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+
+[node name="Tag" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_34d3g")
+script = ExtResource("1_mmgs3")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+
+[node name="TagName" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 14
+text = "Tag"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+flat = true
